@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,28 +10,27 @@ namespace Alura.Loja.Testes.ConsoleApp
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             using (var contexto = new LojaContext())
             {
                 var produtos = contexto.Produtos.ToList();
-                foreach(var p in produtos)
+                
+                ExibeEntries(contexto.ChangeTracker.Entries());
+                //var p1 = produtos.Last();
+                //p1.Nome = "Harry Potter - Prisioneiro";
+                var novoProduto = new Produto()
                 {
-                    Console.WriteLine(p);
-                }
-                Console.WriteLine("-------------");
-                foreach (var e in contexto.ChangeTracker.Entries())
-                {
-                    Console.WriteLine(e);
-                }
-                var p1 = produtos.Last();
-                p1.Nome = "Harry Potter - Prisioneiro";
+                    Nome = "Desinfetante",
+                    Categoria = "Limpeza",
+                    Preco = 2.99
+                };
+                contexto.Produtos.Add(novoProduto);
 
-                Console.WriteLine("-------------");
-                foreach (var e in contexto.ChangeTracker.Entries())
-                {
-                    Console.WriteLine(e);
-                }
+                ExibeEntries(contexto.ChangeTracker.Entries());
+                contexto.SaveChanges();
+                ExibeEntries(contexto.ChangeTracker.Entries());
                 Console.ReadKey();
                 //Console.WriteLine("-------------");
                 //produtos = contexto.Produtos.ToList();
@@ -37,7 +40,18 @@ namespace Alura.Loja.Testes.ConsoleApp
                 //}
             }
         }
-
+        private static void ExibeEntries(IEnumerable<EntityEntry> entries)
+        {
+            using(var contexto = new LojaContext())
+            {
+                Console.WriteLine("-------------");
+                foreach (var e in contexto.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(e.Entity.ToString() + " - " + e.State);
+                }
+            }
+            
+        }
         private static void AtualizarProduto()
         {
             // inclui um porduto

@@ -8,7 +8,7 @@
         public double Preco { get; internal set; }
         public override string ToString()
         {
-            return "Produto: " + this.Nome;
+            return $"Produto: {Nome}, {Categoria}, {Preco}";
         }
     }
 }
