@@ -8,12 +8,34 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            // GravarUsandoAdoNet();
-            //GravarUsandoEntity();
-            //RecuperarProdutos();
-            //ExcluirProdutos();
-            //RecuperarProdutos();
-            AtualizarProduto();
+            using (var contexto = new LojaContext())
+            {
+                var produtos = contexto.Produtos.ToList();
+                foreach(var p in produtos)
+                {
+                    Console.WriteLine(p);
+                }
+                Console.WriteLine("-------------");
+                foreach (var e in contexto.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(e);
+                }
+                var p1 = produtos.Last();
+                p1.Nome = "Harry Potter - Prisioneiro";
+
+                Console.WriteLine("-------------");
+                foreach (var e in contexto.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(e);
+                }
+                Console.ReadKey();
+                //Console.WriteLine("-------------");
+                //produtos = contexto.Produtos.ToList();
+                //foreach(var p in produtos)
+                //{
+                //    Console.WriteLine(p);
+                //}
+            }
         }
 
         private static void AtualizarProduto()
@@ -28,7 +50,7 @@ namespace Alura.Loja.Testes.ConsoleApp
                 primeiro.Nome = "Harry Potter - Atualizado";
                 repo.Atualizar(primeiro);
             }
-            RecuperaProdutos();
+            RecuperarProdutos();
         }
 
         private static void ExcluirProdutos()
