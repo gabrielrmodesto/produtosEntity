@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Alura.Loja.Testes.ConsoleApp.Migrations
 {
-    public partial class Unidade : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,8 +17,7 @@ namespace Alura.Loja.Testes.ConsoleApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Categoria = table.Column<string>(nullable: true),
                     Nome = table.Column<string>(nullable: true),
-                    PrecoUnitario = table.Column<double>(nullable: false),
-                    Unidade = table.Column<string>(nullable: true)
+                    Preco = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
