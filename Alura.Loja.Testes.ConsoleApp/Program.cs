@@ -31,8 +31,8 @@ namespace Alura.Loja.Testes.ConsoleApp
                 };
                 contexto.Produtos.Add(novoProduto);
 
-                //var p1 = produtos.First();
-                //contexto.Produtos.Remove(p1);
+                
+                contexto.Produtos.Remove(novoProduto);
 
                 ExibeEntries(contexto.ChangeTracker.Entries());
                 contexto.SaveChanges();
@@ -43,14 +43,13 @@ namespace Alura.Loja.Testes.ConsoleApp
         }
         private static void ExibeEntries(IEnumerable<EntityEntry> entries)
         {
-            using(var contexto = new LojaContext())
-            {
+            
                 Console.WriteLine("-------------");
-                foreach (var e in contexto.ChangeTracker.Entries())
+                foreach (var e in entries)
                 {
                     Console.WriteLine(e.Entity.ToString() + " - " + e.State);
                 }
-            }
+            
             
         }
         private static void AtualizarProduto()
