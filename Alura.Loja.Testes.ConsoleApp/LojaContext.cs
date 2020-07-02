@@ -6,6 +6,7 @@ namespace Alura.Loja.Testes.ConsoleApp
     internal class LojaContext : DbContext
     {
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Compra> Compras { get; set; }
         public LojaContext() { }
         public LojaContext(DbContextOptions<LojaContext> options) : base(options) { }
 
