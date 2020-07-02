@@ -169,6 +169,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compra.cs" />
     <Compile Include="IProdutoDAO.cs" />
     <Compile Include="LojaContext.cs" />
     <Compile Include="Migrations\20200701044237_Inicial.cs" />
