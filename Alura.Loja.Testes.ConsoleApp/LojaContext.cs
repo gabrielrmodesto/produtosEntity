@@ -7,6 +7,7 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Compra> Compras { get; set; }
+        public DbSet<Promocao> Promocaos { get; set; }
         public LojaContext() { }
         public LojaContext(DbContextOptions<LojaContext> options) : base(options) { }
 

@@ -13,29 +13,28 @@ namespace Alura.Loja.Testes.ConsoleApp
 
         static void Main(string[] args)
         {
-            var paoFrances = new Produto();
-            paoFrances.Nome = "Pão Frances";
-            paoFrances.PrecoUnitario = 0.40;
-            paoFrances.Unidade = "Unidade";
-            paoFrances.Categoria = "Padaria";
+            var promocaoDePascoa = new Promocao();
+            promocaoDePascoa.Descricao = "Pascoa Feliz";
+            promocaoDePascoa.DataInicio = DateTime.Now;
+            promocaoDePascoa.DataTermino = DateTime.Now.AddMonths(3);
+            promocaoDePascoa.Produtos.Add(new Produto());
+            promocaoDePascoa.Produtos.Add(new Produto());
+            promocaoDePascoa.Produtos.Add(new Produto());
 
-            var compra = new Compra();
-
-            compra.Quantidade = 6;
-            compra.Produto = paoFrances;
-            compra.Preco = paoFrances.PrecoUnitario * compra.Quantidade;
-            using (var contexto = new LojaContext())
+            using(var contexto = new LojaContext())
             {
-                var serviceProvider = contexto.GetInfrastructure<IServiceProvider>();
+                var serviceProvider = contexto.GetInfra structure<IServiceProvider>();
                 var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
                 loggerFactory.AddProvider(SqlLoggerProvider.Create());
-
-                contexto.Compras.Add(compra);
-
-                contexto.SaveChanges();
             }
         }
-        
+        private static void ExibeEntries(IEnumerable<EntityEntry> entries)
+        {
+            foreach(var e in entries)
+            {
+                Console.WriteLine(e.Entity.ToString() + " - " + e.State);
+            }
+        }  
 
         
     }
